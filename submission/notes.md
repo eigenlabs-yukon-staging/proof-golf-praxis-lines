@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Terminal results, heavy stacks and coset averaging
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+This cut retains the three terminal removals, the convex ledger proof and the direct heavy-stack proof. The QAP criterion uses a root count on the polynomial obtained by summing over subgroup rescalings. The two divisions share a divisibility condition because the Lagrange polynomial at the key point is a scalar multiple of the other points' vanishing polynomial.
