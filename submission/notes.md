@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Direct short multiples and first-mark bounds
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The heavy-stack proof constructs the short multiple directly from the row-space vector. The prefix-lattice and integer-relation arguments occur where the proof needs them. The first-mark proof uses the total received-label count for guessed targets and a same-group pair count for initial collisions.
