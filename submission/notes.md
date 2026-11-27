@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Terminal results and bounds for the ledger and heavy stacks
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The three non-target results with no outgoing demands are removed. A convexity argument supplies the ledger bound. One result now supplies the rank, short-multiple and packing conclusions for heavy stacks, using a count of fibers and the inverse theorem.

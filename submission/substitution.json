@@ -1,9 +1,132 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Terminal results and direct bounds for the ledger and heavy stacks",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "lem:ledger",
+    "lem:gp-rank",
+    "lem:heavy"
+  ],
+  "add": [
+    {
+      "id": "new:convex-ledger",
+      "kind": "lemma",
+      "label": "Lemma B.2",
+      "name": "Generic bound",
+      "statement": "Under (P5), $E(2Q+2) \\le (Q+1)/2^\\lambda$ for $0\\le Q<2^\\lambda$.",
+      "proof": "The formula for $\\varepsilon_f$ is positive since $D<q$.\nThe polynomial given by the formula for $E$ has quadratic coefficient $(\\theta+10\\varepsilon_f)/2$.\nThis coefficient is positive since $\\theta>0$. Thus $E$ is convex.\nBy (P5), $E(2)\\le 2^{-\\lambda}$.\nAdding the two inequalities of (P5) gives $E(2^{\\lambda+1})\\le 1$.\nThe affine function $u/2^{\\lambda+1}$ takes those upper bounds at the two endpoints.\nConvexity bounds $E$ by this affine function on $[2,2^{\\lambda+1}]$.\nTaking $u=2Q+2$ gives the claim.",
+      "explain": "Proves the bound used on the outgoing edge.",
+      "group": "G"
+    },
+    {
+      "name": "Heavy stacks",
+      "label": "Lemma B.8",
+      "kind": "lemma",
+      "statement": "Let the parameters satisfy (P3), and let $\\mathbf{W}$ be a heavy stack.\n\n \n(a) $\\operatorname{rank} \\mathbf{W} \\le 3$.\n(b) Every kernel vector $v$ in the row space of $\\mathbf{W}$ has a short multiple.\n(c) If $x$ is a short multiple of a kernel vector, then $\\hat x \\in R^\\ell$, with the $\\hat x_j$ of Definition 5.1 over $\\mathbb{Z}$, solves MSIS for the matrix $A$ of the columns $1, \\dots, \\ell$ of $M$ (Definition 3.3): $0 < \\|\\hat x\\|_\\infty \\le \\beta$ and $A \\hat x = 0 \\bmod q$.",
+      "id": "new:heavy-fibers",
+      "explain": "Directly counts stack fibers and applies the inverse theorem to the kernel vector.",
+      "proof": "Suppose the matrix formed by stacking the rows of the $W_c$ has rank at least four.\nChoose four independent columns including column $0$ if it is nonzero.\nFix the independent draws corresponding to the other columns, with $r_\\star$ corresponding to column $0$ in $\\mathcal D_g$.\nIf column $0$ is unchosen, it is zero.\nA fiber prescribes at most one residue tuple in the four chosen columns by their independence.\nThe residues at the chosen nonzero indices determine at most one draw each since $g<q$.\nIf column $0$ was chosen, its residue determines at most one independent draw, since in $\\mathcal D_g$ the remaining entries now fix the shift from $r_\\star$.\nEach fiber therefore contains at most a fraction $g^{-4}$ of the draws.\nCondition (I5) gives $g^{-4}<\\mu_{\\mathrm{tr}}$.\nThe definition $\\mu_{\\mathrm{tr}}=\\theta-100\\varepsilon_{\\mathrm{tr}}$ gives $\\mu_{\\mathrm{tr}}<\\theta$ since $\\varepsilon_{\\mathrm{tr}}>0$.\nThis fiber bound contradicts heaviness.\n\nLet $v$ be a kernel vector in the row space.\nThe constant coefficient of $z(v)=0$ gives $v_0=0$.\nAs $v$ lies in the row space, $v^\\top r$ is constant on each stack fiber.\nThe heaviest fiber then gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.\nHeaviness gives $\\operatorname{gp}(v^\\top)>\\theta$.\nThe incoming inverse bound supplies a short multiple.\n\nFor any short multiple $x$, its reduction lies in the kernel of $z$ by linearity.\nThe constant coefficient then gives $x_0=0\\bmod q$.\nThe bound $|x_0|\\le\\beta<q$ implies $x_0=0$ over the integers.\nThe remaining coefficients of $z(x\\bmod q)$ are those of $A\\hat x$ by the definition of the forms at $x_0=0$.\nThus $A\\hat x=0\\bmod q$.\nThe short multiple has nonzero reduction, so $x\\ne 0$. \nPacking $x_1,\\dots,x_N$ with zero padding preserves $0<\\|x\\|_\\infty\\le\\beta$."
+    }
+  ],
+  "edges": [
+    {
+      "from": "blob:bound-e",
+      "to": "new:convex-ledger",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:convex-ledger"
+    },
+    {
+      "from": "lem:inverse",
+      "to": "new:heavy-fibers",
+      "kind": "uses",
+      "demand": "Every nonzero v with v_0 = 0 and gp(v^\u22a4) > \u03b8 has an integer x with \u2016x\u2016_\u221e \u2264 \u03b2, x_0 = 0 and x \u2261 c\u00b7v mod q for some c \u2260 0.",
+      "clause": "whole statement",
+      "where": "Proof of B.8(b).",
+      "slack": "This is the only arrow that leaves the six-node inverse-theorem module."
+    },
+    {
+      "from": "blob:msis",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:stacks-gp",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:forms-weights",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:kernel-short",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:admissibility",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:heavy-fibers"
+    },
+    {
+      "kind": "background",
+      "from": "blob:inverse-conditions",
+      "to": "new:heavy-fibers"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:convex-ledger"
+      ],
+      "argument": "The statement directly supplies the bound under (P5) for the stated query range."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:reduction"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clauses (a), (b), and (c) give the rank bound, existence of a short multiple for a kernel vector of the row space, and the Module-SIS property of its packing."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:extractor"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clause (a) supplies rank at most three."
+    }
+  ]
 }
