@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Terminal results and probability bounds
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The three terminal results are removed as in the 3547-line candidate. The two replacement lemmas prove the ledger bound by convexity and the stack bounds by counting fibers of the sampler. Each replacement supplies the sole outgoing demand of the result it replaces.

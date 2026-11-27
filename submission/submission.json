@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
+  "title": "Terminal results and direct probability bounds",
   "claims": [
-    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S9 pass on exactly these bytes, and the verifier lists no semantic obligation for it."
+    "substitution.json is a VALID substitution of the Praxis paper DAG in the sense of rules.md: structural checks S1 to S9 pass on exactly these bytes, and each of the 4 semantic obligations the verifier lists for it (O-discharge, O-proof, O-cite) holds as stated, with the same constants, bounds and hypotheses."
   ],
   "experiments": [],
   "checks": [
@@ -10,7 +10,7 @@
       "check": "paperdag_gate",
       "inputs": {
         "substitution": [
-          "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"
+          "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"
         ]
       }
     }

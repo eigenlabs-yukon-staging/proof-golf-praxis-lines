@@ -1,9 +1,88 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Terminal results and direct probability bounds",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "lem:ledger",
+    "lem:gp-rank"
+  ],
+  "add": [
+    {
+      "id": "new:convex-ledger",
+      "kind": "lemma",
+      "label": "Lemma B.2",
+      "name": "Generic bound",
+      "statement": "Under (P5), $E(2Q+2) \\le (Q+1)/2^\\lambda$ for $0\\le Q<2^\\lambda$.",
+      "proof": "The formula for $\\varepsilon_f$ is positive since $D<q$.\nThe polynomial given by the formula for $E$ has quadratic coefficient $(\\theta+10\\varepsilon_f)/2$.\nThis coefficient is positive since $\\theta>0$. Thus $E$ is convex.\nBy (P5), $E(2)\\le 2^{-\\lambda}$.\nAdding the two inequalities of (P5) gives $E(2^{\\lambda+1})\\le 1$.\nThe affine function $u/2^{\\lambda+1}$ takes those upper bounds at the two endpoints.\nConvexity bounds $E$ by this affine function on $[2,2^{\\lambda+1}]$.\nTaking $u=2Q+2$ gives the claim.",
+      "explain": "Proves the bound used on the outgoing edge.",
+      "group": "G"
+    },
+    {
+      "id": "new:fiber-rank",
+      "kind": "lemma",
+      "label": "Lemma 4.5",
+      "name": "Rank bound",
+      "statement": "For every stack $\\mathbf W$, $\\operatorname{gp}(\\mathbf W)\\le g^{-\\operatorname{rank}\\mathbf W}$.\nFor every $v$ in its row space, $\\operatorname{gp}(v^\\top)\\ge \\operatorname{gp}(\\mathbf W)$.",
+      "proof": "Let $M$ have the rows of the stack.\nChoose a column basis containing column $0$ if that column is nonzero.\nFix $u$.\nAssign the sampler's independent draws for the unchosen columns, using $r_\\star$ for column $0$ in $\\mathcal D_g$.\nAn unchosen column $0$ is zero.\nThe equation $Mr=u$ determines at most one tuple of residues at the chosen columns by column independence.\nThe residues at the chosen nonzero indices determine their draws uniquely when they exist since $g<q$.\nIf column $0$ is chosen in the independent sampler, its residue likewise determines $r_0$.\nIf column $0$ is chosen in $\\mathcal D_g$, its residue determines $r_\\star$ by the sampler formula since the other entries are now fixed.\nThus at most $g^{N+1-\\operatorname{rank}\\mathbf W}$ of the $g^{N+1}$ equiprobable draws give $Mr=u$.\nMaximizing over $u$ gives the first bound.\nSince $v^\\top$ is a row combination of $M$, $v^\\top r$ is constant on each fiber of $Mr$.\nTaking the fiber of largest mass proves the second bound.",
+      "explain": "Proves the bound used on the outgoing edge.",
+      "group": "A"
+    }
+  ],
+  "edges": [
+    {
+      "from": "blob:bound-e",
+      "to": "new:convex-ledger",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:convex-ledger"
+    },
+    {
+      "from": "blob:sampler-search",
+      "to": "new:fiber-rank",
+      "kind": "background"
+    },
+    {
+      "from": "blob:stacks-gp",
+      "to": "new:fiber-rank",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:convex-ledger"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:convex-ledger"
+      ],
+      "argument": "The statement directly supplies the bound under (P5) for the stated query range."
+    },
+    {
+      "edge": [
+        "lem:gp-rank",
+        "lem:heavy"
+      ],
+      "by": [
+        "new:fiber-rank"
+      ],
+      "argument": "Rank at least four gives guessing probability at most g^(-4), strictly below theta under (I5), since (P3) imposes (I5) and the trimming density threshold is at most theta. For a heavy stack the second inequality bounds the guessing probability of each row-space kernel vector below by the guessing probability of the stack, which is strictly above theta by heaviness."
+    }
+  ]
 }
