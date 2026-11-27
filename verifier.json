@@ -78,9 +78,6 @@
    "files": [
     "checkers/paperdag_gate.py",
     "checkers/paperdag.py",
-    "checkers/printlines.py",
-    "checkers/widths.json",
-    "checkers/paper_heights.json",
     "checkers/dag.json"
    ],
    "input_schema": {
