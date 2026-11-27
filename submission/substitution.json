@@ -1,8 +1,12 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
+  "title": "Remove three non-target results with no outgoing demands",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension"
+  ],
   "add": [],
   "edges": [],
   "discharge": []
