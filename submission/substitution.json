@@ -1,9 +1,335 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Terminal cuts, direct bounds and integer-lattice indices",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "lem:ledger",
+    "lem:gp-rank",
+    "lem:heavy",
+    "lem:qap",
+    "lem:classification",
+    "lem:moore",
+    "lem:lattice-facts",
+    "lem:prefix"
+  ],
+  "add": [
+    {
+      "id": "new:convex-ledger",
+      "kind": "lemma",
+      "label": "Lemma B.2",
+      "name": "Generic bound",
+      "statement": "Under (P5), $E(2Q+2) \\le (Q+1)/2^\\lambda$ for $0\\le Q<2^\\lambda$.",
+      "proof": "The formula for $\\varepsilon_f$ is positive since $D<q$.\nThe polynomial given by the formula for $E$ has quadratic coefficient $(\\theta+10\\varepsilon_f)/2$.\nThis coefficient is positive since $\\theta>0$. Thus $E$ is convex.\nBy (P5), $E(2)\\le 2^{-\\lambda}$.\nAdding the two inequalities of (P5) gives $E(2^{\\lambda+1})\\le 1$.\nThe affine function $u/2^{\\lambda+1}$ takes those upper bounds at the two endpoints.\nConvexity bounds $E$ by this affine function on $[2,2^{\\lambda+1}]$.\nTaking $u=2Q+2$ gives the claim.",
+      "explain": "Proves the bound used on the outgoing edge.",
+      "group": "G"
+    },
+    {
+      "name": "Heavy stacks",
+      "label": "Lemma B.8",
+      "kind": "lemma",
+      "statement": "Let the parameters satisfy (P3), and let $\\mathbf{W}$ be a heavy stack.\n\n \n(a) $\\operatorname{rank} \\mathbf{W} \\le 3$.\n(b) Every kernel vector $v$ in the row space of $\\mathbf{W}$ has a short multiple.\n(c) If $x$ is a short multiple of a kernel vector, then $\\hat x \\in R^\\ell$, with the $\\hat x_j$ of Definition 5.1 over $\\mathbb{Z}$, solves MSIS for the matrix $A$ of the columns $1, \\dots, \\ell$ of $M$ (Definition 3.3): $0 < \\|\\hat x\\|_\\infty \\le \\beta$ and $A \\hat x = 0 \\bmod q$.",
+      "id": "new:heavy-fibers",
+      "explain": "Directly counts stack fibers and applies the inverse theorem to the kernel vector.",
+      "proof": "Suppose the matrix formed by stacking the rows of the $W_c$ has rank at least four.\nChoose four independent columns including column $0$ if it is nonzero.\nFix the independent draws corresponding to the other columns, with $r_\\star$ corresponding to column $0$ in $\\mathcal D_g$.\nIf column $0$ is unchosen, it is zero.\nA fiber prescribes at most one residue tuple in the four chosen columns by their independence.\nThe residues at the chosen nonzero indices determine at most one draw each since $g<q$.\nIf column $0$ was chosen, its residue determines at most one independent draw, since in $\\mathcal D_g$ the remaining entries now fix the shift from $r_\\star$.\nEach fiber therefore contains at most a fraction $g^{-4}$ of the draws.\nCondition (I5) gives $g^{-4}<\\mu_{\\mathrm{tr}}$.\nThe definition $\\mu_{\\mathrm{tr}}=\\theta-100\\varepsilon_{\\mathrm{tr}}$ gives $\\mu_{\\mathrm{tr}}<\\theta$ since $\\varepsilon_{\\mathrm{tr}}>0$.\nThis fiber bound contradicts heaviness.\n\nLet $v$ be a kernel vector in the row space.\nThe constant coefficient of $z(v)=0$ gives $v_0=0$.\nAs $v$ lies in the row space, $v^\\top r$ is constant on each stack fiber.\nThe heaviest fiber then gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.\nHeaviness gives $\\operatorname{gp}(v^\\top)>\\theta$.\nThe incoming inverse bound supplies a short multiple.\n\nFor any short multiple $x$, its reduction lies in the kernel of $z$ by linearity.\nThe constant coefficient then gives $x_0=0\\bmod q$.\nThe bound $|x_0|\\le\\beta<q$ implies $x_0=0$ over the integers.\nThe remaining coefficients of $z(x\\bmod q)$ are those of $A\\hat x$ by the definition of the forms at $x_0=0$.\nThus $A\\hat x=0\\bmod q$.\nThe short multiple has nonzero reduction, so $x\\ne 0$. \nPacking $x_1,\\dots,x_N$ with zero padding preserves $0<\\|x\\|_\\infty\\le\\beta$."
+    },
+    {
+      "id": "new:qap-averaging",
+      "kind": "lemma",
+      "label": "Lemma 4.7",
+      "name": "QAP criterion by coset averaging",
+      "explain": "Uses simultaneous divisibility and the root bound on the coset average.",
+      "statement": "For admissible evaluation points and symmetric $W$, passing is equivalent to divisibility of $P_W-Z_0R$ by $Z$ for an allowed $R$.\nPassing is also equivalent to divisibility of $P_W-\\chi L_\\rho-Z_0R$ by $Z(X)(X-\\rho)$ for an allowed $R$ and a scalar $\\chi$.\nThe respective quotients have degrees below $D$ and $D-1$.\nBoth divisions require $R=R_W$, and the second requires $\\chi=W_{00}$. For a witness $w$, both divisions exist for $W=ww^\\top$ with $\\chi=1$.",
+      "proof": "By the QAP table, $P_W-Z_0R$ vanishes on $\\mathcal P_0\\setminus\\{\\rho\\}$ exactly when the Booleanity tests hold.\nOn the cosets, vanishing requires exactly the interpolant $R_W$ because $R$ has degree below $\\nu n_{\\mathsf c}$.\nThe factor theorem therefore gives divisibility by $Z$ exactly when the Booleanity tests hold and $R=R_W$.\nBy the QAP table, passing the constraints means that the coset sums of $R_W$ vanish.\nThe polynomial $\\sum_{\\xi\\in\\mathcal G}R_W(\\xi X)$ takes those sums at all $\\nu n_{\\mathsf c}$ coset points.\nIt vanishes at those points exactly when it is zero by its degree bound.\nThe monomial sum rule shows that it is zero exactly when $R_W$ has no exponent divisible by $\\nu$, since $\\nu\\ne0$ in $\\mathbb F_q$.\nThus the interpolant is allowed exactly when the constraint tests hold.\nInterpolation gives $L_\\rho=Z/Z(\\rho)$.\nSubtracting $\\chi L_\\rho$ therefore preserves divisibility by $Z$ in both directions.\nThe QAP table gives $P_W(\\rho)-\\chi L_\\rho(\\rho)-Z_0(\\rho)R(\\rho)=W_{00}-\\chi$.\nGiven divisibility by $Z$, the factor theorem makes the extra factor $X-\\rho$ equivalent to $\\chi=W_{00}$.\nThe degrees of the numerators are at most $2D-2$ by the defining degrees.\nSubtracting the respective divisor degrees gives the two bounds.\nA witness $w$ has $w_0=1$, which gives $(ww^\\top)_{00}=1$.\nOn its moment matrix, the Booleanity tests give $w_j^2-w_j=0$.\nEach constraint test gives $\\sum_f a_{t,f}(w)b_{t,f}(w)-w_0c_t(w)=0$ by the witness property.\nThus both divisions exist by the equivalences."
+    },
+    {
+      "id": "new:witness-stack",
+      "label": "Lemma B.6",
+      "kind": "lemma",
+      "name": "A witness in the row space",
+      "explain": "Uses the symmetric trilinear form forced by the ties and the Boolean coordinates.",
+      "statement": "A nonzero usable stack of rank at most three with no kernel vector in its row space has a witness of $S$ in that row space.",
+      "proof": "Let $\\mathcal V$ be the row space of the stack and $d$ its dimension.\nTake a basis matrix $\\mathcal U$ for $\\mathcal V$ with rows $u_i$.\nConstruct $h_s$ by evaluating $\\sigma^s(z)$ on the chosen basis, for $s=0,n/2-1,n/2,n/2+1$.\nThe entries of $h_0$ are independent over $\\mathbb F_q$ because a nonzero combination of the basis vectors cannot belong to the kernel of $z$.\nThe basis vectors are over $\\mathbb F_q$, so $h_s=\\sigma^s(h_0)$.\nThe field automorphism preserves independence of the entries.\nThe first $d$ consecutive columns from $h_{n/2-1}$ form a basis by the Moore determinant.\nThe matrices $W_U,W_V,\\sigma^{n/2+1}(W_U)$ are symmetric because the stack matrices are symmetric.\nTheir columns belong to the extension-field span of $\\mathcal U$ because each is a combination of stack matrices.\nApply a left inverse of $\\mathcal U$ to the three matrices on the left and its transpose on the right to obtain $\\Xi_{n/2-1},\\Xi_{n/2},\\Xi_{n/2+1}$, respectively.\nMultiplying these by $\\mathcal U$ and $\\mathcal U^\\top$ reconstructs $W_U,W_V,\\sigma^{n/2+1}(W_U)$ because their column and row spaces lie in the chosen span.\nThese coordinate matrices are symmetric by applying the same left inverse on both sides, transposed on the right.\nReconstruction by $\\mathcal U$ and $\\mathcal U^\\top$ is injective because $\\mathcal U$ has a left inverse.\nModulo $P$, the substitutions $-T/\\omega,-T,-\\omega T$ are the corresponding powers of $\\sigma$ by $\\omega^{n/2}=-1$.\nThe three tie equations then give $\\Xi_s h_{s'}=\\Xi_{s'}h_s$ in row-space coordinates.\nFor the tie equations and linear extension let $s,s'$ range over $n/2-1,n/2,n/2+1$.\nAny relation $\\sum_s\\varrho_s h_s=0$ implies $(\\sum_s\\varrho_s\\Xi_s)h_{s'}=0$ for each $s'$ by the ties.\nThus $\\sum_s\\varrho_s\\Xi_s=0$ because the $h_{s'}$ span.\nConsequently $h_s\\mapsto\\Xi_s$ extends to a linear map $\\Xi$.\nIts trilinear form $\\Xi(h;u,u')=u^\\top\\Xi(h)u'$ is symmetric in its last two inputs.\nThe ties give symmetry in its first and last inputs on spanning vectors.\nHence it is symmetric in all three inputs.\nThe form is nonzero because $W_U,W_V$ together contain all coefficients of the nonzero stack.\nAll three matrices obey the Booleanity tests by linearity of those tests over the extension field.\nThose tests give $\\Xi(h_s;u_j,u_j-u_0)=0$ for every $j\\in[N]$.\nBy linearity these equations hold with every $h$ in place of $h_s$.\nThe even exponents of $W_V$ give $W_V=\\sigma^{n/2}(W_V)$.\nThe identity $\\sigma^n=\\mathrm{id}$ gives $W_U=\\sigma^{n/2-1}(\\sigma^{n/2+1}(W_U))$.\nSince $\\mathcal U$ is over $\\mathbb F_q$, these equalities give $\\Xi_s=\\sigma^s(\\Xi_{n-s})$ for $s\\in\\{n/2-1,n/2\\}$.\n\nIf $u_0=0$, choose a basis $l_1,\\dots,l_d$ among the other rows.\nBooleanity and symmetry make every basis entry with a repeated index zero.\nA nonzero entry then requires $d=3$.\nBy symmetry the entries on permutations of the distinct indices all equal $\\Xi(l_1;l_2,l_3)$.\nIn this basis $\\Xi(h_s;l_b,l_c)$ for distinct $b,c$ is $\\Xi(l_1;l_2,l_3)$ times the coordinate of $h_s$ at the remaining $l_a$.\nComparing these entries in the Frobenius equalities gives $\\Xi(l_1;l_2,l_3)h_s=\\sigma^s(\\Xi(l_1;l_2,l_3))h_0$ since $\\sigma^s(h_{n-s})=h_0$.\nFor $\\Xi(l_1;l_2,l_3)\\ne0$ both $h_{n/2-1}$ and $h_{n/2}$ are multiples of $h_0$.\nThis contradicts their independence in the Moore basis.\nThus $u_0\\ne0$.\n\nComplete $l_0=u_0$ to a basis $l_0,\\dots,l_{d-1}$ using other rows.\nFor each $\\delta\\in\\{0,1\\}^{d-1}$ let $p_\\delta$ be the unique vector over $\\mathbb F_q$ with evaluations $(1,\\delta)$ on this basis.\nDefine $w_\\delta=\\mathcal U p_\\delta$.\nBy symmetry and Booleanity, a basis entry of $\\Xi$ depends only on its set of positive indices, since one occurrence of a repeated positive index can be replaced by $0$.\nThe cubic evaluation tensor of $p_\\delta$ on a basis triple is one exactly when its set of positive indices lies in the support of $\\delta$.\nInclusion ordering makes this incidence matrix triangular with diagonal one.\nConsequently $\\Xi(h)=\\sum_\\delta c_\\delta(h^\\top p_\\delta)p_\\delta p_\\delta^\\top$ for extension-field coefficients $c_\\delta$.\nThe matrix of the $p_\\delta p_\\delta^\\top$ evaluated on basis pairs has the same incidence rows, since every subset of positive indices occurs on a pair for $d-1\\le2$.\nHence these squares are linearly independent.\nThe absence of kernel vectors gives $z(w_\\delta)\\ne0$ since $(w_\\delta)_0=1$.\nThe expansion gives $\\Xi_s=\\sum_\\delta c_\\delta\\sigma^s(z(w_\\delta))p_\\delta p_\\delta^\\top$.\nComparing square coefficients in the Frobenius equalities gives $c_\\delta\\sigma^s(z(w_\\delta))=\\sigma^s(c_\\delta)z(w_\\delta)$ for $s\\in\\{n/2-1,n/2\\}$.\nThus $c_\\delta/z(w_\\delta)$ is fixed by both consecutive powers.\nIt is fixed by $\\sigma$ by composing one power with the inverse of the other.\nWrite $c_\\delta=\\chi_\\delta z(w_\\delta)$ with $\\chi_\\delta\\in\\mathbb F_q$.\n\nEvery linear test $\\varrho$ vanishes on $W_U,W_V,\\sigma^{n/2+1}(W_U)$ because all $W_c$ pass.\nLet $\\mathcal Q=\\sum_\\delta\\chi_\\delta\\varrho(w_\\delta w_\\delta^\\top)p_\\delta p_\\delta^\\top$.\nThe coordinate expansions then give $h_0^\\top\\mathcal Q h_s=0$ for each of the three consecutive $h_s$.\nHence $h_0^\\top\\mathcal Q=0$ because the $h_s$ span.\nThe independence of the entries of $h_0$ makes $\\mathcal Q=0$, since $\\mathcal Q$ is over $\\mathbb F_q$.\nIndependence of the squares gives $\\chi_\\delta\\varrho(w_\\delta w_\\delta^\\top)=0$ for every $\\delta$.\nSome $\\chi_\\delta$ is nonzero because $\\Xi$ is nonzero.\nFor this $\\delta$ all tests of $w_\\delta w_\\delta^\\top$ pass.\nThe Booleanity tests give $(w_\\delta)_j^2=(w_\\delta)_j$ at each coordinate because $(w_\\delta)_0=1$.\nThe constraint tests give the quadratic constraints because each term on this matrix factors into its two evaluations at $w_\\delta$.\nEach solution of $(w_\\delta)_j^2=(w_\\delta)_j$ lies in $\\{0,1\\}$ because $\\mathbb F_q$ is a field.\nThus $w_\\delta$ is a witness in $\\mathcal V$."
+    },
+    {
+      "kind": "lemma",
+      "label": "Lemma B.17",
+      "name": "Integer lattices",
+      "id": "new:minor-facts",
+      "explain": "Uses a largest minor for coordinate control and Smith normal form for lifting a relation.",
+      "statement": "For a lattice $\\Theta\\subseteq\\mathbb Z^I$ with a largest minor at $J$, the restriction to $J$ is injective on $\\operatorname{span}_{\\mathbb R}(\\Theta)$ and $|y_i|\\le\\|y_J\\|_1$ for every $y$ in that span and $i\\in I$.\nFor prime $q$, if an integer matrix $\\Delta$ with row set $I$ has rank $k$ and all $k\\times k$ minors have absolute value below $q$, every $c\\in\\mathbb Z^I$ with $c^\\top\\Delta=0\\bmod q$ is congruent modulo $q$ to an integer $u$ with $u^\\top\\Delta=0$.",
+      "proof": "Take a basis matrix $B$ for $\\Theta$.\nCramer's rule expresses each row of $B$ in the rows of $B_J$ with coefficients given by ratios of minors to $\\det B_J$.\nEvery coefficient has absolute value at most one by maximality of the minor.\nFor $y$ in the column span of $B$, the same row combination expresses $y_i$ in the entries of $y_J$.\nThe triangle inequality gives $|y_i|\\le\\|y_J\\|_1$.\nThus vanishing at $J$ implies vanishing everywhere.\n\nFor rank zero take $u=c$.\nOtherwise choose a nonzero $k\\times k$ minor of $\\Delta$.\nIts determinant is coprime to $q$ by the minor bound.\nFor rows outside this minor, choose the entries of $u$ congruent to those of $c$ modulo $q$ and divisible by the determinant using the Chinese remainder theorem.\nSolve the equations $u^\\top\\Delta=0$ on the selected columns for the selected row entries.\nThe solution is integral by Cramer's rule because the right sides are divisible by the determinant.\nThe selected row entries reduce to those of $c$ by uniqueness of the solution modulo $q$.\nThe selected columns span the rational column space, so the remaining equations hold as well."
+    },
+    {
+      "kind": "lemma",
+      "label": "Lemma B.18",
+      "name": "Prefix lattices",
+      "statement": "Let $\\Theta \\subseteq \\mathbb{Z}^I$ be a saturated lattice of rank $d \\ge 1$ with a basis matrix $B$ and a largest minor at $J$. Order $I$ as $i_1, \\dots, i_{|I|}$ with $J$ first, and for $d \\le k \\le |I|$ let $I_k := \\{ i_1, \\dots, i_k \\}$, and let $\\Theta_k \\subseteq \\mathbb{Z}^{I_k}$ be the integer points of the column span of the submatrix $B_{I_k}$, with height $h_k$ and largest fiber density $m_k$.\n\n \n(a) $\\Theta_d = \\mathbb{Z}^{I_d}$, so $h_d = 1$ and $m_d = g^{-d}$; $\\Theta_{|I|} = \\Theta$; and each $\\Theta_k$ has rank $d$ and a largest minor at $J$.\n(b) For $d \\le k < |I|$ there is an integer $s_k \\ge 1$ with $h_{k+1} = s_k h_k$ and $m_{k+1} \\le m_k \\lceil g/s_k \\rceil/g$. If $s_k \\ge g$, the entry at $i_{k+1}$ is constant on each fiber of $\\Theta_{k+1}$; if $s_k < g$, then $m_{k+1}^b h_{k+1}^{b-1} \\le m_k^b h_k^{b-1}$.\n(c) If $d = 3$ and $m(\\Theta) \\ge \\mu_{\\mathrm{tr}}$, then $h(\\Theta) \\le H_3$ and $\\Theta$ is regular.",
+      "id": "new:prefix-indices",
+      "explain": "Uses quotient indices and induction on the product error.",
+      "proof": "The submatrix $B_{I_k}$ has rank $d$ since it contains $B_J$.\nFor a basis matrix $Y$ of $\\Theta_k$, write $B_{I_k}=YC$ with $C$ integral and nonsingular.\nThe fibers are those of $B_{I_k}^\\top$ because $C^\\top$ is injective.\nSet $G_k=B_{I_k}^\\top\\mathbb Z^{I_k}$.\nThe basis $Y$ extends to a unimodular basis by the incoming demand.\nThe transpose of that matrix is onto, so its first $d$ coordinates give $Y^\\top\\mathbb Z^{I_k}=\\mathbb Z^d$.\nSubstitution in $G_k$ gives $G_k=C^\\top\\mathbb Z^d$.\nEach minor scales by $\\det C$, so $J$ remains a largest minor.\nThe index $[\\mathbb Z^d:G_k]$ is $|\\det C|$.\nThus $h_k[\\mathbb Z^d:G_k]=h(\\Theta)$.\nThe span at $k=d$ is full, so $\\Theta_d=\\mathbb Z^{I_d}$.\nIts height is one.\nIts singleton fibers have density $g^{-d}$.\nAt $k=|I|$, saturation gives $\\Theta_k=\\Theta$.\n\nLet $s_k$ be the order of the added row of $B$ modulo $G_k$.\nThen $[G_{k+1}:G_k]=s_k$ because that row generates the quotient.\nThe height-index formula yields $h_{k+1}=s_k h_k$.\nA fixed fiber constrains the added coordinate to one class modulo $s_k$, by subtracting its row contribution from the fiber value.\nA class has at most $\\lceil g/s_k\\rceil$ values in the interval.\nFor $s_k\\ge g$ it therefore has at most one value.\nCounting the admissible box slices gives $m_{k+1}\\le m_k\\lceil g/s_k\\rceil/g$.\nFor $s_k=1$ this is monotonicity with $h_{k+1}=h_k$.\nOn $[2,g]$ the function $s^{1/b}-1-s/g$ is concave.\nBy (I1), $2/g\\le1/(2b)<(\\ln 2)/b$.\nAt $2$ nonnegativity follows from $2^{1/b}-1\\ge(\\ln 2)/b$.\nAt $g$ it is nonnegative since $g^{1/b}\\ge2$ by (I1).\nConcavity therefore gives $1+s_k/g\\le s_k^{1/b}$ for $2\\le s_k<g$.\nThe ceiling estimate yields $\\lceil g/s_k\\rceil/g\\le s_k^{-1+1/b}$.\nCombining with the height ratio proves the claimed product inequality.\n\nFor rank three, iterate the density bound using $\\lceil g/s_k\\rceil/g\\le 1/s_k+1/g$ only for $s_k\\ge2$.\nThe product of those $s_k$ is $h(\\Theta)$ by the height ratios.\nThe product of their factors $1/s_k+1/g$ exceeds the product of $1/s_k$ by at most $1/(g-2)$.\nWith at most one factor the error is at most $1/g$.\nAt any further factor the previous product of the $1/s_k$ is at most $1/2$.\nThe new error is therefore at most $(1/2+1/g)/(g-2)+1/(2g)=1/(g-2)$ by induction.\nBernoulli's inequality gives $\\xi_{\\mathrm{tr}}\\ge1+508/g$.\nFor $g\\ge128$, $1+508/g\\ge g/(g-2)$.\nThus $m(\\Theta)\\le g^{-3}\\xi_{\\mathrm{tr}}(1/h(\\Theta)+1/g)$.\nCombining with $m(\\Theta)\\ge\\mu_{\\mathrm{tr}}$ and the positive denominator in (I2) gives $h(\\Theta)\\le H_3$.\nMultiplying the density bound by $h(\\Theta)$ gives $m(\\Theta)h(\\Theta)\\le g^{-3}\\xi_{\\mathrm{tr}}(1+H_3/g)$.\nThe last bound gives regularity by (I4)."
+    }
+  ],
+  "edges": [
+    {
+      "from": "blob:bound-e",
+      "to": "new:convex-ledger",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:convex-ledger"
+    },
+    {
+      "from": "lem:inverse",
+      "to": "new:heavy-fibers",
+      "kind": "uses",
+      "demand": "Every nonzero v with v_0 = 0 and gp(v^\u22a4) > \u03b8 has an integer x with \u2016x\u2016_\u221e \u2264 \u03b2, x_0 = 0 and x \u2261 c\u00b7v mod q for some c \u2260 0.",
+      "clause": "whole statement",
+      "where": "Proof of B.8(b).",
+      "slack": "This is the only arrow that leaves the six-node inverse-theorem module."
+    },
+    {
+      "from": "blob:msis",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:stacks-gp",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:forms-weights",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:kernel-short",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:admissibility",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:heavy-fibers"
+    },
+    {
+      "kind": "background",
+      "from": "blob:inverse-conditions",
+      "to": "new:heavy-fibers"
+    },
+    {
+      "from": "ext:aur",
+      "to": "new:qap-averaging",
+      "kind": "uses",
+      "demand": "X^k sums over a coset of order \u03bd to \u03bd\u00b7\u03b4^k if \u03bd divides k, and to zero otherwise.",
+      "clause": "as cited",
+      "where": "Proof of Lemma 4.7."
+    },
+    {
+      "from": "blob:tests",
+      "to": "new:qap-averaging",
+      "kind": "background"
+    },
+    {
+      "from": "blob:qap",
+      "to": "new:qap-averaging",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:bqs",
+      "to": "new:qap-averaging"
+    },
+    {
+      "from": "blob:bqs",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "blob:tests",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "blob:stacks-gp",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "blob:forms-weights",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "blob:copies-ties",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "blob:kernel-short",
+      "to": "new:witness-stack",
+      "kind": "background"
+    },
+    {
+      "from": "ext:ln",
+      "to": "new:witness-stack",
+      "kind": "uses",
+      "demand": "The Moore determinant of elements that are linearly independent over F_q is nonzero.",
+      "clause": "as cited",
+      "where": "Proof of Lemma B.5."
+    },
+    {
+      "from": "blob:lattices",
+      "to": "new:minor-facts",
+      "kind": "background"
+    },
+    {
+      "from": "blob:inverse-conditions",
+      "to": "new:prefix-indices",
+      "kind": "background"
+    },
+    {
+      "from": "blob:lattices",
+      "to": "new:prefix-indices",
+      "kind": "background"
+    },
+    {
+      "kind": "uses",
+      "demand": "The columns of a basis matrix of a saturated lattice extend to an integer basis of its ambient lattice.",
+      "from": "ext:cas",
+      "to": "new:prefix-indices"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:convex-ledger"
+      ],
+      "argument": "The statement directly supplies the bound under (P5) for the stated query range."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:reduction"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clauses (a), (b), and (c) give the rank bound, existence of a short multiple for a kernel vector of the row space, and the Module-SIS property of its packing."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:extractor"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clause (a) supplies rank at most three."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:view"
+      ],
+      "by": [
+        "new:qap-averaging"
+      ],
+      "argument": "The identities give the corresponding divisibility with an allowed remainder. Both directions give passing, and the key-cell divisibility forces its corner to be chi."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:honest"
+      ],
+      "by": [
+        "new:qap-averaging"
+      ],
+      "argument": "The witness clause gives both exact divisions with unit key coefficient, and the general conclusion gives the allowed remainder and respective degree bounds."
+    },
+    {
+      "edge": [
+        "lem:classification",
+        "lem:extractor"
+      ],
+      "by": [
+        "new:witness-stack"
+      ],
+      "argument": "The statement supplies exactly the witness conclusion at rank at most three under nonzero usability and absence of a kernel vector."
+    },
+    {
+      "edge": [
+        "lem:lattice-facts",
+        "lem:sparse"
+      ],
+      "by": [
+        "ext:cas"
+      ],
+      "argument": "Extend the columns of V to a unimodular basis by the cited extension theorem. Its transpose maps the integer lattice onto itself. Projection onto the coordinates of the original columns is the transpose of V, so it is onto as demanded."
+    },
+    {
+      "edge": [
+        "lem:lattice-facts",
+        "lem:regularize"
+      ],
+      "by": [
+        "new:minor-facts"
+      ],
+      "argument": "The asserted injectivity prevents a nonzero vector in the span from vanishing at the largest minor."
+    },
+    {
+      "edge": [
+        "lem:lattice-facts",
+        "lem:inverse"
+      ],
+      "by": [
+        "new:minor-facts"
+      ],
+      "argument": "The first assertion gives injectivity and the coordinate bound. The second transfers the modular relation to an integer one under the minor bound."
+    },
+    {
+      "edge": [
+        "lem:prefix",
+        "lem:regularize"
+      ],
+      "by": [
+        "new:prefix-indices"
+      ],
+      "argument": "The statement retains the prefix chain with the same height and density properties, including the rank-three height and regularity conclusions."
+    },
+    {
+      "edge": [
+        "lem:prefix",
+        "lem:inverse"
+      ],
+      "by": [
+        "new:prefix-indices"
+      ],
+      "argument": "The statement retains the prefix chain with the same height and density properties, including the rank-three height and regularity conclusions."
+    }
+  ]
 }

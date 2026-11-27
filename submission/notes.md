@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Bounds and integer-lattice indices
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+This cut keeps the previously accepted probability, heavy-stack, QAP, and witness results. It uses the Chinese remainder theorem to lift integer matrix relations, and a product estimate to bound the heights of dense prefix lattices.
