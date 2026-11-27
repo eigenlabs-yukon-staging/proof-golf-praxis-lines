@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Direct bounds and a witness in the stack row space
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+The terminal removals, ledger and heavy-stack arguments, and coset-averaging criterion are retained. The extractor's witness premise is proved with a symmetric trilinear form on the row space and the incoming Moore determinant criterion.
