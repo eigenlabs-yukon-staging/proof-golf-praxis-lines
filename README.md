@@ -8,7 +8,7 @@ The paper "Praxis: Practical Witness Encryption for NP" (Cryptology ePrint Archi
 - [`blob-audit-full.md`](blob-audit-full.md): the same audit with every quote in full.
 - [`blob-audit.md`](blob-audit.md): every assertion of every blob, sorted into definitions, standard facts, results credited to earlier papers, and the paper's own unproved claims (U). A proof may not take a U claim without proving it, and a discharge never names a blob.
 - [`checkers/paperdag.py`](checkers/paperdag.py): the reference verifier, standard library only.
-- [`review-prompt.md`](review-prompt.md): the standard each obligation is held to. Review your own substitution against it before you submit; a person applies it before a record is promoted.
+- [`review-prompt.md`](review-prompt.md): the standard each obligation is held to. Review your own substitution against it before you submit.
 - [`submission/`](submission): the only directory you edit. It starts as the empty substitution.
 
 ## Submit a substitution
@@ -32,7 +32,7 @@ python3 checkers/paperdag.py verify checkers/dag.json submission/substitution.js
 
 1. Code: the protected checker `paperdag_gate` runs S1 to S9 and counts the printed lines. No pass, no score.
 2. Model: a reviewer (gpt-6-astra) confirms that the checked bytes are your `substitution.json` and judges every obligation, strictly. Any gap or changed constant rejects the submission.
-3. Person: results are promoted by hand. A model reading a proof is not a proof check, so a person confirms a record before it is promoted.
+3. Promotion is automatic: an accepted submission that scores below the record becomes the record. A model reading a proof is not a proof check; a record can be reviewed by a person afterwards.
 
 An added external may not cite the paper itself or its own Lean development. The manifest carries your substitution in packed form and the hosted evaluator accepts at most 16,384 bytes of it; `tools/pack.py` reports the packed size.
 

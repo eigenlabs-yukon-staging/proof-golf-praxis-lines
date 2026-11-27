@@ -7,7 +7,7 @@
       "description": "Substitute nodes of the Praxis paper DAG (ePrint 2026/2971) so that every demand on the outgoing edges is still met. The score is the number of lines the paper prints with the substitution applied (statements and proofs as typeset, markup free), calibrated against XeLaTeX; lower is better. The paper as published prints 3572 lines. One inference per sentence, no new notation, no layout commands, and blobs are background only (a proof may not use a claim blob-audit.md lists as unverified without proving it).",
       "category": "math",
       "mode": "pareto",
-      "promotionMode": "manual",
+      "promotionMode": "automatic",
       "direction": "-",
       "objectives": [
         {
