@@ -1,9 +1,196 @@
 {
   "format": "paper-dag-substitution/1",
   "base": "c11e19f1da0f93daaf309da999a465e2ea3d1f7f24761e9b5776ef7108e435d4",
-  "title": "Baseline: the paper as published, nothing removed, nothing added",
-  "remove": [],
-  "add": [],
-  "edges": [],
-  "discharge": []
+  "title": "Terminal cuts, direct bounds, coset averaging and the off-target implication",
+  "remove": [
+    "lem:we-hiding",
+    "lem:rank-one",
+    "prop:hs-dimension",
+    "lem:ledger",
+    "lem:gp-rank",
+    "lem:heavy",
+    "lem:qap",
+    "lem:half"
+  ],
+  "add": [
+    {
+      "id": "new:convex-ledger",
+      "kind": "lemma",
+      "label": "Lemma B.2",
+      "name": "Generic bound",
+      "statement": "Under (P5), $E(2Q+2) \\le (Q+1)/2^\\lambda$ for $0\\le Q<2^\\lambda$.",
+      "proof": "The formula for $\\varepsilon_f$ is positive since $D<q$.\nThe polynomial given by the formula for $E$ has quadratic coefficient $(\\theta+10\\varepsilon_f)/2$.\nThis coefficient is positive since $\\theta>0$. Thus $E$ is convex.\nBy (P5), $E(2)\\le 2^{-\\lambda}$.\nAdding the two inequalities of (P5) gives $E(2^{\\lambda+1})\\le 1$.\nThe affine function $u/2^{\\lambda+1}$ takes those upper bounds at the two endpoints.\nConvexity bounds $E$ by this affine function on $[2,2^{\\lambda+1}]$.\nTaking $u=2Q+2$ gives the claim.",
+      "explain": "Proves the bound used on the outgoing edge.",
+      "group": "G"
+    },
+    {
+      "name": "Heavy stacks",
+      "label": "Lemma B.8",
+      "kind": "lemma",
+      "statement": "Let the parameters satisfy (P3), and let $\\mathbf{W}$ be a heavy stack.\n\n \n(a) $\\operatorname{rank} \\mathbf{W} \\le 3$.\n(b) Every kernel vector $v$ in the row space of $\\mathbf{W}$ has a short multiple.\n(c) If $x$ is a short multiple of a kernel vector, then $\\hat x \\in R^\\ell$, with the $\\hat x_j$ of Definition 5.1 over $\\mathbb{Z}$, solves MSIS for the matrix $A$ of the columns $1, \\dots, \\ell$ of $M$ (Definition 3.3): $0 < \\|\\hat x\\|_\\infty \\le \\beta$ and $A \\hat x = 0 \\bmod q$.",
+      "id": "new:heavy-fibers",
+      "explain": "Directly counts stack fibers and applies the inverse theorem to the kernel vector.",
+      "proof": "Suppose the matrix formed by stacking the rows of the $W_c$ has rank at least four.\nChoose four independent columns including column $0$ if it is nonzero.\nFix the independent draws corresponding to the other columns, with $r_\\star$ corresponding to column $0$ in $\\mathcal D_g$.\nIf column $0$ is unchosen, it is zero.\nA fiber prescribes at most one residue tuple in the four chosen columns by their independence.\nThe residues at the chosen nonzero indices determine at most one draw each since $g<q$.\nIf column $0$ was chosen, its residue determines at most one independent draw, since in $\\mathcal D_g$ the remaining entries now fix the shift from $r_\\star$.\nEach fiber therefore contains at most a fraction $g^{-4}$ of the draws.\nCondition (I5) gives $g^{-4}<\\mu_{\\mathrm{tr}}$.\nThe definition $\\mu_{\\mathrm{tr}}=\\theta-100\\varepsilon_{\\mathrm{tr}}$ gives $\\mu_{\\mathrm{tr}}<\\theta$ since $\\varepsilon_{\\mathrm{tr}}>0$.\nThis fiber bound contradicts heaviness.\n\nLet $v$ be a kernel vector in the row space.\nThe constant coefficient of $z(v)=0$ gives $v_0=0$.\nAs $v$ lies in the row space, $v^\\top r$ is constant on each stack fiber.\nThe heaviest fiber then gives $\\operatorname{gp}(v^\\top)\\ge\\operatorname{gp}(\\mathbf W)$.\nHeaviness gives $\\operatorname{gp}(v^\\top)>\\theta$.\nThe incoming inverse bound supplies a short multiple.\n\nFor any short multiple $x$, its reduction lies in the kernel of $z$ by linearity.\nThe constant coefficient then gives $x_0=0\\bmod q$.\nThe bound $|x_0|\\le\\beta<q$ implies $x_0=0$ over the integers.\nThe remaining coefficients of $z(x\\bmod q)$ are those of $A\\hat x$ by the definition of the forms at $x_0=0$.\nThus $A\\hat x=0\\bmod q$.\nThe short multiple has nonzero reduction, so $x\\ne 0$. \nPacking $x_1,\\dots,x_N$ with zero padding preserves $0<\\|x\\|_\\infty\\le\\beta$."
+    },
+    {
+      "id": "new:qap-averaging",
+      "kind": "lemma",
+      "label": "Lemma 4.7",
+      "name": "QAP criterion by coset averaging",
+      "explain": "Uses simultaneous divisibility and the root bound on the coset average.",
+      "statement": "For admissible evaluation points and symmetric $W$, passing is equivalent to divisibility of $P_W-Z_0R$ by $Z$ for an allowed $R$.\nPassing is also equivalent to divisibility of $P_W-\\chi L_\\rho-Z_0R$ by $Z(X)(X-\\rho)$ for an allowed $R$ and a scalar $\\chi$.\nThe respective quotients have degrees below $D$ and $D-1$.\nBoth divisions require $R=R_W$, and the second requires $\\chi=W_{00}$. For a witness $w$, both divisions exist for $W=ww^\\top$ with $\\chi=1$.",
+      "proof": "By the QAP table, $P_W-Z_0R$ vanishes on $\\mathcal P_0\\setminus\\{\\rho\\}$ exactly when the Booleanity tests hold.\nOn the cosets, vanishing requires exactly the interpolant $R_W$ because $R$ has degree below $\\nu n_{\\mathsf c}$.\nThe factor theorem therefore gives divisibility by $Z$ exactly when the Booleanity tests hold and $R=R_W$.\nBy the QAP table, passing the constraints means that the coset sums of $R_W$ vanish.\nThe polynomial $\\sum_{\\xi\\in\\mathcal G}R_W(\\xi X)$ takes those sums at all $\\nu n_{\\mathsf c}$ coset points.\nIt vanishes at those points exactly when it is zero by its degree bound.\nThe monomial sum rule shows that it is zero exactly when $R_W$ has no exponent divisible by $\\nu$, since $\\nu\\ne0$ in $\\mathbb F_q$.\nThus the interpolant is allowed exactly when the constraint tests hold.\nInterpolation gives $L_\\rho=Z/Z(\\rho)$.\nSubtracting $\\chi L_\\rho$ therefore preserves divisibility by $Z$ in both directions.\nThe QAP table gives $P_W(\\rho)-\\chi L_\\rho(\\rho)-Z_0(\\rho)R(\\rho)=W_{00}-\\chi$.\nGiven divisibility by $Z$, the factor theorem makes the extra factor $X-\\rho$ equivalent to $\\chi=W_{00}$.\nThe degrees of the numerators are at most $2D-2$ by the defining degrees.\nSubtracting the respective divisor degrees gives the two bounds.\nA witness $w$ has $w_0=1$, which gives $(ww^\\top)_{00}=1$.\nOn its moment matrix, the Booleanity tests give $w_j^2-w_j=0$.\nEach constraint test gives $\\sum_f a_{t,f}(w)b_{t,f}(w)-w_0c_t(w)=0$ by the witness property.\nThus both divisions exist by the equivalences."
+    }
+  ],
+  "edges": [
+    {
+      "from": "blob:bound-e",
+      "to": "new:convex-ledger",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:admissibility",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:enc",
+      "to": "new:convex-ledger"
+    },
+    {
+      "kind": "background",
+      "from": "blob:stacks-gp",
+      "to": "new:convex-ledger"
+    },
+    {
+      "from": "lem:inverse",
+      "to": "new:heavy-fibers",
+      "kind": "uses",
+      "demand": "Every nonzero v with v_0 = 0 and gp(v^\u22a4) > \u03b8 has an integer x with \u2016x\u2016_\u221e \u2264 \u03b2, x_0 = 0 and x \u2261 c\u00b7v mod q for some c \u2260 0.",
+      "clause": "whole statement",
+      "where": "Proof of B.8(b).",
+      "slack": "This is the only arrow that leaves the six-node inverse-theorem module."
+    },
+    {
+      "from": "blob:msis",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:stacks-gp",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:forms-weights",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:kernel-short",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "from": "blob:admissibility",
+      "to": "new:heavy-fibers",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:sampler-search",
+      "to": "new:heavy-fibers"
+    },
+    {
+      "kind": "background",
+      "from": "blob:inverse-conditions",
+      "to": "new:heavy-fibers"
+    },
+    {
+      "from": "ext:aur",
+      "to": "new:qap-averaging",
+      "kind": "uses",
+      "demand": "X^k sums over a coset of order \u03bd to \u03bd\u00b7\u03b4^k if \u03bd divides k, and to zero otherwise.",
+      "clause": "as cited",
+      "where": "Proof of Lemma 4.7."
+    },
+    {
+      "from": "blob:tests",
+      "to": "new:qap-averaging",
+      "kind": "background"
+    },
+    {
+      "from": "blob:qap",
+      "to": "new:qap-averaging",
+      "kind": "background"
+    },
+    {
+      "kind": "background",
+      "from": "blob:bqs",
+      "to": "new:qap-averaging"
+    }
+  ],
+  "discharge": [
+    {
+      "edge": [
+        "lem:ledger",
+        "thm:extraction"
+      ],
+      "by": [
+        "new:convex-ledger"
+      ],
+      "argument": "The statement directly supplies the bound under (P5) for the stated query range."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:reduction"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clauses (a), (b), and (c) give the rank bound, existence of a short multiple for a kernel vector of the row space, and the Module-SIS property of its packing."
+    },
+    {
+      "edge": [
+        "lem:heavy",
+        "lem:extractor"
+      ],
+      "by": [
+        "new:heavy-fibers"
+      ],
+      "argument": "Clause (a) supplies rank at most three."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:view"
+      ],
+      "by": [
+        "new:qap-averaging"
+      ],
+      "argument": "The identities give the corresponding divisibility with an allowed remainder. Both directions give passing, and the key-cell divisibility forces its corner to be chi."
+    },
+    {
+      "edge": [
+        "lem:qap",
+        "lem:honest"
+      ],
+      "by": [
+        "new:qap-averaging"
+      ],
+      "argument": "The witness clause gives both exact divisions with unit key coefficient, and the general conclusion gives the allowed remainder and respective degree bounds."
+    },
+    {
+      "edge": [
+        "lem:half",
+        "cor:ext-error"
+      ],
+      "by": [
+        "ext:br"
+      ],
+      "argument": "The independent coins make the off-target correct-guess mass one half of the off-target probability. Requiring failure can only reduce that mass. The on-target correct-guess and failure mass is bounded by the on-target failure probability, namely (f_0+f_1)/2. The on-target probability is at least this failure probability. Adding the two bounds gives 1/2+(f_0+f_1)/4."
+    }
+  ]
 }
