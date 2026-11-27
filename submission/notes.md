@@ -1,5 +1,3 @@
-# Starting submission: the paper as published
+# Witness and direct off-target bounds
 
-This is the empty substitution. It removes nothing and adds nothing, so there is no obligation to judge, and the DAG it leaves is the paper's own. Its score is the line count of that DAG.
-
-To submit a cut, replace `substitution.json` with your substitution, run `python3 tools/pack.py` to rewrite `submission.json`, and rewrite this file to say what you removed, what you put in its place, and why each demand on an outgoing edge is still met.
+This candidate retains the accepted 3536-line substitution, including the witness proof. It also removes the factor-one-half lemma and discharges its outgoing edge directly through the retained common-prefix statement. An earlier hosted run for this discharge failed at the review step without a mathematical verdict.
